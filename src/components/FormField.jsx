@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useGlobalContext } from "../context";
 
 const FormField = () => {
-  const [showPass, setShowPass] = useState(false);
+  const { showPass, setShowPass } = useGlobalContext();
   return (
     <>
       <h2 className="login-form__title">Şəxsi kabinetə giriş </h2>
