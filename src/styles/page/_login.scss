@@ -1,6 +1,11 @@
 .login {
   display: flex;
   margin: 24px;
+  &__img {
+    svg {
+      width: 100%;
+    }
+  }
   &__pic {
     width: 50%;
     height: calc(100vh - 48px);
@@ -47,9 +52,16 @@
   &__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    &-logo {
+      svg {
+        width: 100%;
+      }
+    }
     &-lang {
       display: flex;
       gap: 16px;
+      padding-left: 15px;
       a {
         font-weight: 500;
         font-size: 16px;
@@ -162,5 +174,29 @@
     padding: 17px 0;
     border: none;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 992px) {
+  .login {
+    &__pic {
+      display: none;
+    }
+    &__form {
+      width: 100%;
+      overflow: visible;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .login {
+    margin: 0;
+    &__form {
+      padding: 24px;
+    }
+  }
+  .form__header-lang a {
+    font-size: 14px;
   }
 }
