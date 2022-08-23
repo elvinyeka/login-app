@@ -1,7 +1,6 @@
 .login {
   display: flex;
   margin: 24px;
-  overflow: hidden;
   &__pic {
     width: 50%;
     height: calc(100vh - 48px);
@@ -35,5 +34,133 @@
       line-height: 150%;
       letter-spacing: 0.2px;
     }
+  }
+  &__form {
+    width: 50%;
+    padding: 48px;
+    overflow: auto;
+    height: 78vh;
+  }
+}
+.form {
+  width: 100%;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    &-lang {
+      display: flex;
+      gap: 16px;
+      a {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+      }
+      a.active {
+        color: $greyscale;
+      }
+    }
+  }
+  &__content {
+    padding: 10% 0px;
+    text-align: center;
+    max-width: 424px;
+    margin: 0 auto;
+    // display: flex;
+    justify-content: center;
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: #475569;
+  }
+}
+
+.login-form {
+  &__title {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 40px;
+    color: #334155;
+    padding-bottom: 10%;
+  }
+  &__mode {
+    box-shadow: inset 0px -2px 0px #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 32px;
+    a {
+      flex: 1;
+      padding-bottom: 16px;
+    }
+    a.active {
+      color: $blue;
+      box-shadow: inset 0px -2px 0px $blue;
+    }
+  }
+  &__input {
+    width: 92%;
+    padding: 16px;
+    border: 1px solid #d8dce0;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 16px;
+    &--pass {
+      position: relative;
+      .pass-btn {
+        position: absolute;
+        top: 17px;
+        right: 6px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    input {
+      width: 1.5em;
+      height: 1.5em;
+      background-color: white;
+      border-radius: 50%;
+      vertical-align: middle;
+      border: 1px solid $greyscale;
+      -webkit-appearance: none;
+      margin-right: 8px;
+      outline: none;
+      cursor: pointer;
+      &:checked {
+        background-color: $blue;
+      }
+    }
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      color: #194bfb;
+    }
+  }
+  &__submit {
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #fff;
+    background: #003f6d;
+    border-radius: 8px;
+    padding: 17px 0;
+    border: none;
+    cursor: pointer;
   }
 }
