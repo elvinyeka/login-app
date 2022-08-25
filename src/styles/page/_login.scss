@@ -175,6 +175,17 @@
     border: none;
     cursor: pointer;
   }
+  &__submit.loading {
+    opacity: 0.5;
+  }
+  &__error {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.3);
+    padding: 15px;
+  }
 }
 
 @media (max-width: 992px) {

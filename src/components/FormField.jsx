@@ -1,73 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useGlobalContext } from "../context";
-import axios from "axios";
-
-const token = "45f7dc98-cff5-4e07-9715-b1a25ac7f62d";
-const url = "http://18.216.47.120:8085/syncpass/authorization";
-const generateTokenURL = "http://18.216.47.120:8085/syncpass/generate_token";
 
 const FormField = () => {
-  const { showPass, setShowPass, setIsLogin } = useGlobalContext();
-  const [userName, setUserName] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const body_data = {
-    form_id: "login",
-    login_type: "email",
-    username: userName,
-    password: pwd,
-  };
-  // username: "mxalilov",
-  // password: "Mikoni@789",
+  const {
+    showPass,
+    setShowPass,
+    userName,
+    setUserName,
+    pwd,
+    setPwd,
+    errMsg,
+    setErrMsg,
+    fetchLogin,
+    isLoading,
+  } = useGlobalContext();
 
-  const fetchLogin = async () => {
-    const tokenResponse = await axios(generateTokenURL, {
-      headers: {
-        acctoken: `${token}`,
-        channel: "b2b_web",
-        device_type: "web",
-        device_name: "Firexox",
-      },
-    });
-    const newAccToken = tokenResponse.data.acctoken;
-
-    try {
-      const response = await axios.post(url, body_data, {
-        headers: {
-          acctoken: `${newAccToken}`,
-          channel: "b2b_web",
-          device_type: "web",
-          device_name: "Firexox",
-        },
-      });
-      setPwd("");
-      setUserName("");
-      setIsLogin(true);
-      const accessToken = response?.headers?.acctoken;
-      console.log(response);
-      console.log(accessToken);
-    } catch (error) {
-      if (!error?.response) {
-        setErrMsg("No Server Response");
-      } else if (error.response?.status === 400) {
-        setErrMsg("İstifadəçi adı və yaxud parol səhdir.");
-      } else if (error.response?.status === 401) {
-        setErrMsg("Belə bir istifadəçi yoxdur.");
-      } else {
-        setErrMsg("Giriş uğurlu olmadı");
-      }
-    }
-  };
   const hadndleLoginSubmit = (e) => {
     e.preventDefault();
     fetchLogin();
   };
+
   useEffect(() => {
     setErrMsg("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userName, pwd]);
+
+  //clear error message
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setErrMsg(false);
+    }, 1500);
+    return () => {
+      clearTimeout(timeout);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errMsg]);
   return (
     <>
-      <h2>{errMsg}</h2>
+      {errMsg && <p className="login-form__error">{errMsg}</p>}
       <h2 className="login-form__title">Şəxsi kabinetə giriş </h2>
       <div className="login-form__mode">
         <a className="active" href="#!">
@@ -162,8 +132,12 @@ const FormField = () => {
           </label>
           <a href="#!">Şifrəni unutmusunuz?</a>
         </div>
-        <button className="login-form__submit" type="submit">
-          Giriş
+        <button
+          disabled={isLoading}
+          className={`login-form__submit ${isLoading ? "loading" : ""}`}
+          type="submit"
+        >
+          {isLoading ? "Loading..." : "Giriş"}
         </button>
       </form>
     </>
